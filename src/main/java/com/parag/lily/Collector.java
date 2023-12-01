@@ -11,7 +11,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 public class Collector {
     private static final Logger LOGGER = Utility.getLogger();
-    private static final URI BASE_URI = URI.create("http://localhost:8080/");
+    private static final URI BASE_URI = URI.create("http://localhost:8001/");
 
     private final Server server;
     public static void main(String[] args) throws Exception {
@@ -21,7 +21,11 @@ public class Collector {
     }
 
     public Collector() {
-        ResourceConfig config = new ResourceConfig().packages("com.parag.lily.routes").register(LoggingFeature.class);
+        ResourceConfig config = new ResourceConfig()
+                .packages("com.parag.lily.routes")
+                .register(LoggingFeature.class)
+                .register(Binder.class);
+
         this.server = JettyHttpContainerFactory.createServer(BASE_URI, config, false);
     }
 

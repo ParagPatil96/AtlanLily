@@ -8,7 +8,6 @@ import jakarta.ws.rs.core.Response;
 
 @Path("/health")
 public class Health extends BaseRoute {
-
     @GET
     public Response get() throws JsonProcessingException {
         return successResponse("I am alive");

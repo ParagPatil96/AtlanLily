@@ -1,0 +1,10 @@
+#zookeeper:
+#  replicaCount: 2
+#  auth:
+#    enabled: false
+#  allowAnonymousLogin: true
+#
+#kafka:
+#  zookeeper:
+#    enable: true
+#  replicaCount: 2
