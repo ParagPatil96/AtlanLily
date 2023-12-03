@@ -40,7 +40,6 @@ public class DBSource {
         source.setPortNumbers(new int[]{26257});
         source.setSsl(false);
         source.setUser(CRD_USER);
-//        source.setPassword(CRD_PASSWORD);
         return source;
     }
 

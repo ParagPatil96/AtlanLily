@@ -29,16 +29,17 @@ public class InboundWebhooksRepository extends BaseRepository<InboundWebhook> {
             StringJoiner query = new StringJoiner(" ");
             query.add("INSERT INTO");
             query.add(tableName());
-            query.add("( metadata_asset_id,endpoint,hmac_secret)");
+            query.add("( metadata_asset_id,endpoint,hmac_secret, plugin)");
             query.add("VALUES (");
-            query.add("?,?,?");
+            query.add("?,?,?,?");
             query.add(")");
             query.add("RETURNING *");
             ResultSet rs = execute(
                     query.toString(),
                     webhook.metadata_asset_id,
                     webhook.endpoint,
-                    webhook.hmac_secret
+                    webhook.hmac_secret,
+                    webhook.plugin
             );
             return parseResultSet(rs).get(0).endpoint.equals(webhook.endpoint);
         } catch (Exception e) {

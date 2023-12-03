@@ -49,6 +49,10 @@ public class BaseRoute {
 		return response(entity, headers, Status.OK);
 	}
 
+	protected Response NotFoundResponse(String message) throws JsonProcessingException {
+		return response(message, new HashMap<>(), Status.NOT_FOUND);
+	}
+
 	protected Response unauthorisedResponse(String message) throws JsonProcessingException {
 		return response(message, new HashMap<>(), Status.UNAUTHORIZED);
 	}
