@@ -5,4 +5,12 @@ public class InboundWebhook {
     public String endpoint;
     public String plugin;
     public String hmac_secret;
+
+    public InboundWebhook(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    // for jackson
+    public InboundWebhook() {
+    }
 }

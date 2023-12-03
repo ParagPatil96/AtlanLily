@@ -3,6 +3,7 @@ package com.parag.lily.consumer;
 import com.parag.lily.DefaultObjectMapper;
 import com.parag.lily.Utility;
 import com.parag.lily.database.repos.InboundWebhooksRepository;
+import com.parag.lily.database.repos.OutboundWebhooksRepository;
 import com.parag.lily.database.tables.InboundWebhook;
 import com.parag.lily.pojos.ConsumerWrapper;
 import com.parag.lily.pojos.WebhookEvent;
@@ -23,7 +24,8 @@ import static com.parag.lily.pubsub.SubscriberManager.MAX_OUTSTANDING_MSG_COUNT;
 
 public class Main {
     private static final Logger LOGGER = Utility.getLogger();
-    private final InboundWebhooksRepository webhooksRepository;
+    private final InboundWebhooksRepository inboundWebhooksRepository;
+    private final OutboundWebhooksRepository outboundWebhooksRepository;
     private final SubscriberManager subscriberManager;
     private final HeartBeat heartBeat;
     private final BlockingQueue<ConsumerWrapper> eventQueue = new ArrayBlockingQueue<>((int) MAX_OUTSTANDING_MSG_COUNT);
@@ -31,7 +33,8 @@ public class Main {
 
     public Main(String subscriptionId) {
         this.subscriberManager = new SubscriberManager(new PubSubManager(), subscriptionId, this::consume);
-        this.webhooksRepository =  new InboundWebhooksRepository();
+        this.inboundWebhooksRepository =  new InboundWebhooksRepository();
+        this.outboundWebhooksRepository =  new OutboundWebhooksRepository();
         this.heartBeat =  new HeartBeat();
     }
 
@@ -62,10 +65,9 @@ public class Main {
     }
 
     private Plugin getPlugin(String endpoint) {
-        InboundWebhook webhook = new InboundWebhook();
-        webhook.endpoint = endpoint;
-        String plugin =  webhooksRepository.getEntity(webhook).getFirst().plugin;
-        return Plugin.get(plugin);
+        InboundWebhook inboundWebhook =  inboundWebhooksRepository.getEntity(new InboundWebhook(endpoint)).getFirst();
+
+        return Plugin.get(inboundWebhook, outboundWebhooksRepository);
     }
 
     private void consume(String data, Runnable ack){

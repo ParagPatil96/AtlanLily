@@ -1,6 +1,7 @@
 package com.parag.lily.collector;
 
 import com.parag.lily.database.repos.InboundWebhooksRepository;
+import com.parag.lily.database.repos.OutboundWebhooksRepository;
 import com.parag.lily.pubsub.PubSubManager;
 import com.parag.lily.pubsub.PublisherManager;
 import jakarta.inject.Singleton;
@@ -10,6 +11,7 @@ public class Binder extends AbstractBinder {
 
     @Override
     protected void configure() {
+        bind(OutboundWebhooksRepository.class).to(OutboundWebhooksRepository.class).in(Singleton.class);
         bind(InboundWebhooksRepository.class).to(InboundWebhooksRepository.class).in(Singleton.class);
         bind(PubSubManager.class).to(PubSubManager.class).in(Singleton.class);
         bind(PublisherManager.class).to(PublisherManager.class).in(Singleton.class);
