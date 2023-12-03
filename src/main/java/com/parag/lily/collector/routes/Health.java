@@ -1,4 +1,4 @@
-package com.parag.lily.routes;
+package com.parag.lily.collector.routes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.ws.rs.GET;

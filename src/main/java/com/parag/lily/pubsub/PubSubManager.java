@@ -37,7 +37,7 @@ public class PubSubManager {
     }
 
     TransportChannelProvider channelProvider() {
-        ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:8080").maxInboundMessageSize(MB_20).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:8090").maxInboundMessageSize(MB_20).usePlaintext().build();
         return FixedTransportChannelProvider.create(GrpcTransportChannel.create(channel));
     }
 

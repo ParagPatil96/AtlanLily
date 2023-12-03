@@ -1,28 +1,32 @@
-package com.parag.lily;
+package com.parag.lily.collector;
 
 import java.net.URI;
 import java.util.logging.Logger;
 
+import com.parag.lily.Utility;
+
+import com.parag.lily.database.DBSource;
 import org.eclipse.jetty.server.Server;
 import org.glassfish.jersey.jetty.JettyHttpContainerFactory;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 
-public class Collector {
+public class Main {
     private static final Logger LOGGER = Utility.getLogger();
     private static final URI BASE_URI = URI.create("http://localhost:8001/");
 
     private final Server server;
     public static void main(String[] args) throws Exception {
-        Collector collector = new Collector();
-        collector.startServer();
-        collector.attachShutdownHook();
+        DBSource.initDataBases();
+        Main main = new Main();
+        main.startServer();
+        main.attachShutdownHook();
     }
 
-    public Collector() {
+    public Main() {
         ResourceConfig config = new ResourceConfig()
-                .packages("com.parag.lily.routes")
+                .packages("com.parag.lily.collector.routes")
                 .register(LoggingFeature.class)
                 .register(Binder.class);
 

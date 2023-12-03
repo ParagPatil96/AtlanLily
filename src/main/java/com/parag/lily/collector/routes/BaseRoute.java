@@ -1,4 +1,4 @@
-package com.parag.lily.routes;
+package com.parag.lily.collector.routes;
 
 import static com.parag.lily.DefaultObjectMapper.JSON;
 import static jakarta.ws.rs.core.Response.Status;

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.logging.Logger;
 
+
 public class DefaultObjectMapper {
 
     private static final Logger LOGGER = Utility.getLogger();
