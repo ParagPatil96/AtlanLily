@@ -46,6 +46,7 @@ public class DBSource {
     public static void initDataBases(){
         runSqlScript(getPostgres(), "/database/postgres/reset_schema.sql");
         runSqlScript(getCockroachDb(), "/database/crd/reset_schema.sql");
+        runSqlScript(getCockroachDb(), "/database/crd/reset_data.sql");
     }
     public static void runSqlScript(DataSource source, String sqlPath){
         try (Connection con = source.getConnection()) {

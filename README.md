@@ -3,6 +3,29 @@
 - PPT: https://docs.google.com/presentation/d/1dmRG-m1jb5FCylZ_gEWq91mD8y6lB2gKPI5qXV-eAzs/edit#slide=id.g2a10ba7bab4_0_77
 
 ## Testing Details
+cd docker
+docker-compose up
+
+### Outward, Inbound
+```
+curl -i --request POST 'http://127.0.0.1:8001/register/inbound' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "metadata_asset_id" : "test_0",
+    "endpoint" : "parag_test",
+    "hmac_secret" : "parag_test",
+    "plugin" : "default"
+}'
+
+curl -i --request POST 'http://127.0.0.1:8001/webhook/parag_test' \                               
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "data" : "{\"metadata_asset_id\" : \"test_0\",\"table_size\" : 100, \"row_count\" : 10, \"pii\" : true}",
+    "metadata_asset_id" : "test_0"
+}'
+```
+
+### Outbound, Outward
 ```
 curl -i --request POST 'http://127.0.0.1:8001/register/inbound' \
 --header 'Content-Type: application/json' \
@@ -22,7 +45,7 @@ curl -i --request POST 'http://127.0.0.1:8001/register/outbound' \
     "plugin" : "slack"
 }'
 
-curl --location --request POST 'http://127.0.0.1:8001/webhook/parag' \
+curl -i --request POST 'http://127.0.0.1:8001/webhook/parag' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data" : "{\"parag\" : \"patil\"}",

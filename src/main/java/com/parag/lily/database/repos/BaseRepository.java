@@ -90,6 +90,9 @@ public abstract class BaseRepository<T> {
 				case "java.lang.Integer":
 					statement.setInt(index, (int) param);
 					break;
+				case "java.lang.Boolean":
+					statement.setBoolean(index, (boolean) param);
+					break;
 				case "java.lang.String":
 				default:
 					statement.setString(index, param.toString());

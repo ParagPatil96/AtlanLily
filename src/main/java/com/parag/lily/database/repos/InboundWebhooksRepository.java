@@ -4,6 +4,7 @@ import com.parag.lily.database.DBSource;
 import com.parag.lily.database.tables.InboundWebhook;
 import jakarta.inject.Inject;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.util.StringJoiner;
 
@@ -12,6 +13,10 @@ public class InboundWebhooksRepository extends BaseRepository<InboundWebhook> {
     @Inject
     public InboundWebhooksRepository() {
         super(DBSource.getPostgres());
+    }
+
+    public InboundWebhooksRepository(DataSource source) {
+        super(source);
     }
 
     @Override
