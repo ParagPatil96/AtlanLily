@@ -71,6 +71,7 @@ public class Main {
     }
 
     private void consume(String data, Runnable ack){
+        heartBeat.update();
         WebhookEvent event = DefaultObjectMapper.parseJson(data, WebhookEvent.class);
         eventQueue.offer(new ConsumerWrapper(event, ack));
     }
